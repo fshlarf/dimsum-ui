@@ -3,7 +3,7 @@ export default {
   ssr: false,
   target: 'static',
   router: {
-    base: '/produsen-dimsum-medan/',
+    base: '/produsen-dimsum-medan',
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
