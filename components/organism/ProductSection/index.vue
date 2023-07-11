@@ -43,7 +43,7 @@
           class="relative"
         >
           <img
-            :src="`/images/product/${product.image}.png`"
+            :src="`images/product/${product.image}.png`"
             alt="dimsum-image"
           />
           <div
@@ -67,7 +67,7 @@
           class="relative"
         >
           <img
-            :src="`/images/product/${product.image}.png`"
+            :src="`images/product/${product.image}.png`"
             alt="dimsum-image"
           />
           <div

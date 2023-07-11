@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="order-1 md:order-2">
-        <img src="/images/poster-quality.png" alt="" />
+        <img src="images/poster-quality.png" alt="" />
       </div>
     </div>
   </div>

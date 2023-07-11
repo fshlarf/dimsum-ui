@@ -9,7 +9,7 @@
         <div class="flex md:gap-3 gap-1 items-start md:justify-center">
           <img
             class="lg:w-auto md:w-10 w-7"
-            :src="`/images/portofolio/${porto.icon}.svg`"
+            :src="`images/portofolio/${porto.icon}.svg`"
             :alt="porto.name"
           />
           <div class="text-left text-white">

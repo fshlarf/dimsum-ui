@@ -117,7 +117,7 @@
             >
               <div>
                 <img
-                  :src="`/images/benefit/icon/${dataService.icon}.svg`"
+                  :src="`images/benefit/icon/${dataService.icon}.svg`"
                   alt="service"
                 />
                 <div class="text-p text-sm text-[#555]">

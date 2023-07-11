@@ -26,7 +26,7 @@
               class="box-step md:mt-6 mt-4 md:p-5 p-3 h-[140px] md:h-[168px]"
             >
               <img
-                :src="`/images/production/icon/${flow.icon}.svg`"
+                :src="`images/production/icon/${flow.icon}.svg`"
                 :alt="`${flow.label}`"
                 class="mt-1 md:w-11 w-10"
               />
@@ -49,7 +49,7 @@
               class="box-step md:mt-6 mt-4 md:p-5 p-3 h-[140px] md:h-[168px]"
             >
               <img
-                :src="`/images/production/icon/${flow.icon}.svg`"
+                :src="`images/production/icon/${flow.icon}.svg`"
                 :alt="`${flow.label}`"
                 class="mt-1 md:w-11 w-10"
               />
@@ -70,7 +70,7 @@
               class="box-step md:mt-6 mt-4 md:p-5 p-3 h-[140px] md:h-[168px]"
             >
               <img
-                :src="`/images/production/icon/${flow.icon}.svg`"
+                :src="`images/production/icon/${flow.icon}.svg`"
                 :alt="`${flow.label}`"
                 class="mt-1 md:w-11 w-10"
               />

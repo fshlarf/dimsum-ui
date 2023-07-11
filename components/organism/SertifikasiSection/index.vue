@@ -15,7 +15,7 @@
       <div v-for="(sertif, id) in sertifikasi" :key="id">
         <div class="box flex-nowrap items-center justify-center p-6">
           <img
-            :src="`/images/sertifikasi/${sertif.icon}.svg`"
+            :src="`images/sertifikasi/${sertif.icon}.svg`"
             :alt="sertif.label"
             class="mx-auto"
           />

@@ -36,10 +36,10 @@
 <style>
 .bg-banner {
   @media only screen and (min-width: 360px) {
-    background-image: url('/images/banner-desktop.png');
+    background-image: url('images/banner-desktop.png');
   }
   @media only screen and (max-width: 360px) {
-    background-image: url('/images/banner-mobile.png');
+    background-image: url('images/banner-mobile.png');
   }
 }
 </style>
