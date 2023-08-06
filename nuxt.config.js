@@ -3,12 +3,12 @@ export default {
   ssr: false,
   target: 'static',
   router: {
-    base: '/produsen-dimsum-medan',
+    base: '/dimsum-ui',
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'produsen-dimsum',
+    title: 'Produsen Dimsum',
     htmlAttrs: {
       lang: 'en',
     },
