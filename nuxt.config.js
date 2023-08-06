@@ -3,7 +3,7 @@ export default {
   ssr: false,
   target: 'static',
   router: {
-    base: '/dimsum-ui',
+    base: '/',
   },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
