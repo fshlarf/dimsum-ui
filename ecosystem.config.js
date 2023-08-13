@@ -6,7 +6,7 @@ module.exports = {
       instances: '2', // Or a number of instances
       script: 'yarn',
       args: 'start',
-      interpreter: '/bin/bash',
+      interpreter: 'bash',
       env: {
         NODE_ENV: 'development',
       },
