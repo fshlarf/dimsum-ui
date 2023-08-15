@@ -59,5 +59,5 @@ export default {
       },
     },
   },
-  serverMiddleware: ['~/api/api-proxy.js'],
+  // serverMiddleware: ['~/api/api-proxy.js'],
 }
