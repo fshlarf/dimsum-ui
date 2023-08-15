@@ -33,155 +33,76 @@
       Berikut Ini Produk Dimsum yang tersedia di Produsen Dimsum Medan dengan
       beragam variant yang menarik dan sudah teruji kehalalannya.
     </div>
-    <div class="lg:block hidden">
-      <div class="grid grid-cols-4 mt-5 gap-5 justify-center items-center">
-        <div
-          @mouseover="product.isShow = true"
-          @mouseleave="product.isShow = false"
-          v-for="(product, id) in displayProductDesktop"
-          :key="id"
-          class="relative"
-        >
-          <img
-            :src="`images/product/${product.image}.png`"
-            alt="dimsum-image"
-          />
-          <div
-            v-if="product.isShow"
-            class="text-p absolute bottom-0 left-0 w-full text-[#B71A1B] md:text-base text-xs font-medium bg-white bg-opacity-60 md:pl-[21px] pl-[5px] pt-[9px] pb-[9.5px] leading-5"
-          >
-            {{ product.label }}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="lg:hidden">
+    <div>
       <div
-        class="grid md:grid-cols-3 grid-cols-2 mt-5 md:gap-5 gap-3 justify-center items-center"
+        class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mt-5 gap-5 justify-center items-center"
       >
-        <div
-          @mouseover="product.isShow = true"
-          @mouseleave="product.isShow = false"
-          v-for="(product, id) in displayProductMobile"
+        <CardProduct
+          v-for="(product, id) in products"
           :key="id"
-          class="relative"
-        >
-          <img
-            :src="`images/product/${product.image}.png`"
-            alt="dimsum-image"
-          />
-          <div
-            v-if="product.isShow"
-            class="text-p absolute bottom-0 left-0 w-full text-[#B71A1B] md:text-base text-xs font-medium bg-white bg-opacity-60 md:pl-[21px] pl-[5px] pt-[9px] pb-[9.5px] leading-5"
-          >
-            {{ product.label }}
-          </div>
-        </div>
+          :product="product"
+        />
       </div>
     </div>
-    <ButtonShow
-      :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
-      :mode="`${!isShow ? 'top' : 'bottom'}`"
-      @click-show="toggleShow(), (isShow = !isShow)"
-    />
+    <nuxt-link to="list-all-product">
+      <ButtonShow
+        :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
+        :mode="`${!isShow ? 'top' : 'bottom'}`"
+      />
+    </nuxt-link>
   </div>
 </template>
 
 <script>
 import ButtonShow from '~/components/atoms/ButtonShow'
+import CardProduct from '~/components/product/product-dimsum.vue'
 
 export default {
   components: {
     ButtonShow,
+    CardProduct,
   },
   data() {
     return {
-      displayProductDesktop: [],
-      displayProductMobile: [],
+      handleLimitByeScreen: null,
       isShow: false,
-      dataProduct: [
-        {
-          id: 1,
-          image: 'dimsum-2',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-        {
-          id: 2,
-          image: 'dimsum-3',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-        {
-          id: 3,
-          image: 'dimsum-4',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-        {
-          id: 4,
-          image: 'dimsum-5',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-        {
-          id: 5,
-          image: 'dimsum-2',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-        {
-          id: 6,
-          image: 'dimsum-3',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-        {
-          id: 7,
-          image: 'dimsum-4',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-        {
-          id: 8,
-          image: 'dimsum-5',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-        {
-          id: 9,
-          image: 'dimsum-5',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-        {
-          id: 10,
-          image: 'dimsum-5',
-          label: 'Dimsum Ayam Seafood',
-          isShow: false,
-        },
-      ],
+      products: [],
+      filterProduct: {
+        limit: null,
+        search: '',
+        categoryId: 1,
+      },
     }
   },
+  beforeMount() {
+    this.limitProductWithScreen()
+  },
   mounted() {
-    this.displayProductDesktop = this.dataProduct.slice(0, 8)
-    this.displayProductMobile = this.dataProduct.slice(0, 6)
+    this.getProducts()
   },
   methods: {
-    toggleShow() {
-      if (!this.isShow) {
-        this.showAll()
+    limitProductWithScreen() {
+      let screen = window.innerWidth
+      if (screen <= 1400) {
+        this.handleLimitByeScreen = 6
       } else {
-        this.showLess()
+        this.handleLimitByeScreen = 8
       }
     },
-    showAll() {
-      this.displayProductDesktop = this.dataProduct
-      this.displayProductMobile = this.dataProduct
-    },
-    showLess() {
-      this.displayProductDesktop = this.dataProduct.slice(0, 8)
-      this.displayProductMobile = this.dataProduct.slice(0, 6)
+    async getProducts() {
+      try {
+        const res = await this.$axios.get('/customer/products', {
+          params: (this.filterProduct = {
+            ...this.filterProduct,
+            limit: this.handleLimitByeScreen,
+          }),
+        })
+        this.products = res.data.data
+
+        this.products = res.data.data
+      } catch (error) {
+        console.log(error)
+      }
     },
   },
 }
