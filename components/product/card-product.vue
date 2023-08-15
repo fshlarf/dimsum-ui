@@ -1,47 +1,57 @@
 <template>
   <div
-    class="box-price md:h-[138px] h-[116px] w-full max-w-[330px] flex md:gap-4 gap-3 justify-center items-center mx-auto"
+    class="box-price md:h-[138px] w-full max-w-[330px] flex md:gap-4 gap-3 items-center mx-auto p-[12px] cursor-pointer"
+    @click="$router.push(`/product/detail?id=${product.id}`)"
   >
-    <div>
+    <div
+      class="w-[90px] h-[90px] lg:w-[104px] lg:h-[101px] overflow-hidden rounded-[8px]"
+    >
       <img
         :id="`product-${product.id}`"
         :alt="`dimsum-${product.name}`"
-        class="w-[90px] h-[90px] lg:w-[104px] lg:h-[101px]"
+        class="w-full h-full object-cover object-center mx-auto"
       />
     </div>
-    <div class="flex flex-col lg:gap-5 gap-3">
-      <div class="flex lg:gap-6 md:gap-1 gap-3">
-        <div class="space-y-1">
-          <h2 v-if="product.categoryId === 1">Variant Dimsum</h2>
-          <h2 v-else-if="product.categoryId === 2">Variant Saus</h2>
-          <h2 v-else>Variant Menu</h2>
-          <h3 class="md:text-sm text-xs">{{ product.name }}</h3>
-        </div>
-        <div class="space-y-1">
-          <h2 v-if="product.categoryId === 1">Isi per box</h2>
-          <h2 v-else>Isi</h2>
-          <h3 class="md:text-sm text-xs">
-            {{ product.quantity }} {{ product.unit }}
-          </h3>
-        </div>
+    <div class="w-[211px] space-y-[10px]">
+      <div class="-mb-1">
+        <p class="md:text-sm text-xs font-semibold one-line">
+          {{ product.name }}
+        </p>
       </div>
-      <div class="flex lg:gap-6 md:gap-1 gap-3">
-        <div class="space-y-1">
-          <h2>Harga Reseller</h2>
-          <h3 class="md:text-sm text-xs">{{ product.resellerPrice }}</h3>
-        </div>
-        <div class="space-y-1">
-          <h2>Harga Agent</h2>
-          <h3 class="md:text-sm text-xs">{{ product.agentPrice }}</h3>
-        </div>
+      <div class="flex justify-between items-center">
+        <p class="text-[#555555CC]/80 text-xs">
+          Isi per {{ product.packaging }}
+        </p>
+        <p class="md:text-sm text-xs font-semibold">
+          {{ product.quantity }} {{ product.unit }}
+        </p>
+      </div>
+      <div class="flex justify-between items-center">
+        <p class="text-[#555555CC]/80 text-xs">Harga Reseller</p>
+        <p class="md:text-sm text-xs font-semibold">
+          {{ toRupiah(product.resellerPrice) }}
+        </p>
+      </div>
+      <div class="flex justify-between items-center">
+        <p class="text-[#555555CC]/80 text-xs">Harga Agent</p>
+        <p class="md:text-sm text-xs font-semibold">
+          {{ toRupiah(product.agentPrice) }}
+        </p>
       </div>
     </div>
   </div>
 </template>
+
 <script>
+import { toRupiah } from '~/helpers/common'
+
 export default {
   props: {
     product: {
+      typeof: Object,
+      default: () => {},
+    },
+    category: {
       typeof: Object,
       default: () => {},
     },
@@ -85,26 +95,16 @@ export default {
           })
       }
     },
+    toRupiah,
   },
 }
 </script>
 
 <style scoped>
 .box-price {
+  font-family: Poppins;
   border-radius: 10px;
   background: #fff;
   box-shadow: 0px 2px 3px 0px rgba(246, 178, 5, 0.15);
-}
-h2 {
-  color: rgba(85, 85, 85, 0.8);
-  font-family: Poppins;
-  font-size: 12px;
-  font-style: normal;
-}
-h3 {
-  color: #2d2d2d;
-  font-family: Poppins;
-  font-style: normal;
-  font-weight: 600;
 }
 </style>

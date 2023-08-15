@@ -1,13 +1,13 @@
 <template>
-  <div class="bg-white">
-    <div class="w-full h-[149px] lg:h-[194px] bg-white">
+  <div class="bg-white box-article overflow-hidden">
+    <div class="w-full h-[149px] overflow-hidden lg:h-[194px] bg-white">
       <img
         :id="`article-${article.id}`"
         alt="article"
-        class="w-full h-full mx-auto rounded-t-[15px] rounded-b-none"
+        class="w-full h-full mx-auto object-cover object-center"
       />
     </div>
-    <div class="box-article p-5 grid justify-items-start items-center w-full">
+    <div class="p-5 grid justify-items-start items-center w-full">
       <div class="w-full overflow-hidden">
         <section class="h-[120px] w-[80%]">
           <h1
@@ -94,7 +94,7 @@ export default {
       }
     },
     goToDetailsArticle(id) {
-      this.$router.push(`/preview-article?articleId=${id}`)
+      this.$router.push(`/article?id=${id}`)
     },
   },
 }
@@ -102,7 +102,7 @@ export default {
 
 <style scoped>
 .box-article {
-  border-radius: 0px 0px 15px 15px;
+  border-radius: 15px;
   background: #fff;
   box-shadow: 0px 2px 5px 0px rgba(171, 190, 209, 0.3),
     0px 4px 20px 0px rgba(0, 0, 0, 0.05);

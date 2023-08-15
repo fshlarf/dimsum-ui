@@ -2,15 +2,15 @@
   <div>
     <div class="grid grid-cols-4 mt-5 gap-5 justify-center items-center">
       <div
-        class="relative cursor-pointer w-[154px] h-[128px] md:w-[200px] md:h-[170px] xl:w-[264px] xl:h-[232px]"
+        class="relative cursor-pointer w-[154px] h-[128px] md:w-[200px] md:h-[170px] xl:w-[264px] xl:h-[232px] overflow-hidden rounded-[12px]"
         @mouseover="isHover = true"
         @mouseleave="isHover = false"
-        @click="$emit('click')"
+        @click="$router.push(`/product/detail?id=${product.id}`)"
       >
         <img
           alt="dimsum-image"
           :id="`product-image-${product.id}`"
-          class="w-full h-full rounded-[12px]"
+          class="w-full h-full object-cover object-center"
         />
         <div
           v-if="isHover"

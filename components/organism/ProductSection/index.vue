@@ -44,7 +44,7 @@
         />
       </div>
     </div>
-    <nuxt-link to="list-all-product">
+    <nuxt-link v-if="products.length > handleLimitByScreen" to="/product">
       <ButtonShow
         :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
         :mode="`${!isShow ? 'top' : 'bottom'}`"
@@ -64,7 +64,7 @@ export default {
   },
   data() {
     return {
-      handleLimitByeScreen: null,
+      handleLimitByScreen: null,
       isShow: false,
       products: [],
       filterProduct: {
@@ -75,18 +75,18 @@ export default {
     }
   },
   beforeMount() {
-    this.limitProductWithScreen()
+    this.limitProductByScreenSize()
   },
   mounted() {
     this.getProducts()
   },
   methods: {
-    limitProductWithScreen() {
+    limitProductByScreenSize() {
       let screen = window.innerWidth
       if (screen <= 1400) {
-        this.handleLimitByeScreen = 6
+        this.handleLimitByScreen = 6
       } else {
-        this.handleLimitByeScreen = 8
+        this.handleLimitByScreen = 8
       }
     },
     async getProducts() {
@@ -94,7 +94,7 @@ export default {
         const res = await this.$axios.get('/customer/products', {
           params: (this.filterProduct = {
             ...this.filterProduct,
-            limit: this.handleLimitByeScreen,
+            limit: this.handleLimitByScreen,
           }),
         })
         this.products = res.data.data

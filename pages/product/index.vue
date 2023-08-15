@@ -10,9 +10,7 @@
         <h1
           class="text-base md:text-lg lg:text-[28px] font-bold whitespace-nowrap"
         >
-          <span v-if="filterProduct.categoryId == null">All Product</span>
-          <span v-else-if="filterProduct.categoryId == 1">Dimsum</span>
-          <span v-else-if="filterProduct.categoryId == 3">Menu Lainnya</span>
+          <span>{{ selectedCategory.name }}</span>
         </h1>
         <div
           class="flex justify-center items-center text-center bg-[#F6B205]/[25%] text-[#F6B205] rounded-full w-8 h-8 p-1"
@@ -44,7 +42,7 @@
             class="flex py-[10px] items-center gap-[4px] cursor-pointer text-xs lg:text-base"
             @click="isShowCategory = !isShowCategory"
           >
-            <p class="text-[#A0A3BD]">All product</p>
+            <p class="text-[#A0A3BD]">{{ selectedCategory.name }}</p>
             <img src="/icons/chevron-down.svg" alt="chevron" />
           </section>
           <div v-show="isShowCategory" class="absolute top-[110%] right-0 z-40">
@@ -56,7 +54,7 @@
                 v-for="(category, id) in categories"
                 :key="id"
                 class="text-sm"
-                @click="onSelectCategory(category.value)"
+                @click="onSelectCategory(category)"
               >
                 <p
                   class="py-[8px] px-[16px] rounded-[6px] cursor-pointer"
@@ -102,6 +100,7 @@
     </footer>
   </div>
 </template>
+
 <script>
 import CardProduct from '~/components/product/product-dimsum.vue'
 import Pagination from '~/components/molleculs/pagination.vue'
@@ -114,7 +113,7 @@ export default {
   data() {
     return {
       isShowCategory: false,
-      handleLimitByeScreen: null,
+      handleLimitByScreen: null,
       isShow: false,
       isLoading: true,
 
@@ -132,38 +131,34 @@ export default {
           name: 'All Product',
           value: null,
         },
-        {
-          name: 'Dimsum',
-          value: 1,
-        },
-        {
-          name: 'Menu Lainnya',
-          value: 3,
-        },
       ],
+      selectedCategory: {},
     }
   },
   beforeMount() {
-    this.limitProductWithScreen()
+    this.limitProductByScreenSize()
   },
   mounted() {
-    this.getProducts()
+    this.selectedCategory = this.categories[0]
+    this.getCategories()
   },
   methods: {
     onSelectCategory(category) {
+      this.selectedCategory = category
       this.filterProduct = {
         ...this.filterProduct,
         page: 1,
-        categoryId: category,
+        categoryId: category.value,
       }
       this.getProducts()
+      this.isShowCategory = false
     },
-    limitProductWithScreen() {
+    limitProductByScreenSize() {
       let screen = window.innerWidth
       if (screen <= 1400) {
-        this.handleLimitByeScreen = 8
+        this.handleLimitByScreen = 8
       } else {
-        this.handleLimitByeScreen = 16
+        this.handleLimitByScreen = 16
       }
     },
     onSearchProduct() {
@@ -180,14 +175,32 @@ export default {
       }
       this.getProducts()
     },
+    async getCategories() {
+      this.isLoading = true
+      try {
+        const res = await this.$axios.get('/customer/categories')
+        if (res.data) {
+          const { data } = res.data
+          data.map((category) => {
+            this.categories.push({
+              name: category.name,
+              value: category.id,
+            })
+          })
+          this.getProducts()
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      this.isLoading = false
+    },
     async getProducts() {
       this.isLoading = true
-
       try {
         const res = await this.$axios.get('/customer/products', {
           params: (this.filterProduct = {
             ...this.filterProduct,
-            limit: this.handleLimitByeScreen,
+            limit: this.handleLimitByScreen,
           }),
         })
         if (res.data) {
@@ -203,7 +216,7 @@ export default {
       this.isLoading = false
     },
     goToDetailsProduct(id) {
-      this.$router.push(`/product-details?productId=${id}`)
+      this.$router.push(`/product/detail?id=${id}`)
     },
   },
 }

@@ -15,6 +15,7 @@
       <img src="images/reward/coins.png" alt="coins" class="text-center" />
     </div>
     <div
+      v-if="!isLoading"
       class="flex md:mt-9 mt-4 lg:gap-[60px] md:gap-8 gap-3 md:items-center lg:items-start justify-center"
     >
       <div class="grid grid-rows-3 gap-8 w-[350px]">
@@ -24,17 +25,23 @@
           >
             <div
               class="flex gap-1 rounded-t-[10px] justify-center items-center py-1"
-              :class="'bg-' + reward.color"
+              :class="`${
+                id == 0
+                  ? 'bg-[#F6B205]'
+                  : id == 1
+                  ? 'bg-[#B71A1B]'
+                  : 'bg-[#55230F]'
+              }`"
             >
               <img src="images/reward/icon-reward.svg" alt="icon-reward" />
               <div class="md:text-sm text-xs text-white">
-                {{ reward.title }}
+                {{ reward.name }}
               </div>
             </div>
             <div
               class="md:pl-4 pl-3 text-left lg:text-center lg:pl-0 md:text-base text-xs text-[#555] pt-[14px] pb-5"
             >
-              {{ reward.preview }}
+              {{ reward.description }}
             </div>
           </div>
         </div>
@@ -49,17 +56,23 @@
           >
             <div
               class="flex gap-1 rounded-t-[10px] justify-center items-center py-1"
-              :class="`bg-${reward.color}`"
+              :class="`${
+                id == 0
+                  ? 'bg-[#F6B205]'
+                  : id == 1
+                  ? 'bg-[#B71A1B]'
+                  : 'bg-[#55230F]'
+              }`"
             >
               <img src="images/reward/icon-reward.svg" alt="icon-reward" />
               <div class="md:text-sm text-xs text-white">
-                {{ reward.title }}
+                {{ reward.name }}
               </div>
             </div>
             <div
               class="md:pl-4 pl-3 text-left lg:text-center lg:pl-0 md:text-base text-xs text-[#555] pt-3 pb-5"
             >
-              {{ reward.preview }}
+              {{ reward.description }}
             </div>
           </div>
         </div>
@@ -72,47 +85,34 @@
 export default {
   data() {
     return {
-      dataReward1: [
-        {
-          id: 1,
-          title: 'Reward 1/4 Dinar',
-          preview: 'Transaksi sebesar Rp70.000.000',
-          color: '[#F6B205]',
-        },
-        {
-          id: 2,
-          title: 'Reward 1/5 Dinar',
-          preview: 'Transaksi sebesar Rp140.000.000',
-          color: '[#B71A1B]',
-        },
-        {
-          id: 3,
-          title: 'Reward 1 Dinar',
-          preview: 'Transaksi sebesar Rp280.000.000',
-          color: '[#55230F]',
-        },
-      ],
-      dataReward2: [
-        {
-          id: 1,
-          title: 'Reward 2 Dinar',
-          preview: 'Transaksi sebesar Rp560.000.000',
-          color: '[#F6B205]',
-        },
-        {
-          id: 2,
-          title: 'Reward 3 Dinar',
-          preview: 'Transaksi sebesar Rp840.000.000',
-          color: '[#B71A1B]',
-        },
-        {
-          id: 3,
-          title: 'Reward 4 Dinar',
-          preview: 'Transaksi sebesar Rp1.120.000.000',
-          color: '[#55230F]',
-        },
-      ],
+      dataReward1: [],
+      dataReward2: [],
+      isLoading: true,
     }
+  },
+  mounted() {
+    this.getRewards()
+  },
+  methods: {
+    async getRewards() {
+      this.isLoading = true
+      try {
+        const getRewards = await this.$axios.get('/customer/rewards')
+        if (getRewards.data) {
+          const { data } = getRewards.data
+          data.map((reward, id) => {
+            if ([0, 1, 2].includes(id)) {
+              this.dataReward1.push(reward)
+            } else {
+              this.dataReward2.push(reward)
+            }
+          })
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      this.isLoading = false
+    },
   },
 }
 </script>

@@ -25,6 +25,7 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {
   props: {
@@ -73,7 +74,7 @@ export default {
       }
     },
     goToDetailsProduct(id) {
-      this.$router.push(`/preview-article?articleId=${id}`)
+      this.$router.push(`/article?id=${id}`)
     },
     convertToFormattedDate(isoDate) {
       function getMonthName(month) {
@@ -106,6 +107,7 @@ export default {
   },
 }
 </script>
+
 <style scoped>
 .top-article {
   border-radius: 10px;

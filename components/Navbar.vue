@@ -58,7 +58,9 @@
         </div>
       </div>
       <div class="lg:block hidden">
-        <div class="flex md:gap-[52px] gap-5 md:text-sm cursor-pointer">
+        <div
+          class="flex md:gap-[52px] gap-5 md:text-sm cursor-pointer items-center"
+        >
           <div v-for="(navbar, id) in navbarLink" :key="id">
             <div
               class="text-[#2D2D2D] lg:text-center text-right"
@@ -67,11 +69,11 @@
               {{ navbar.label }}
             </div>
           </div>
-          <div class="flex gap-1">
+          <div class="flex gap-1 items-center">
             <img src="~/assets/atoms/telp.svg" alt="icon-telp" class="" />
             <a
               href="https://api.whatsapp.com/send?phone=62875126758"
-              class="text-[#B71A1B]"
+              class="text-[#B71A1B] break-keep"
             >
               0813 7512 6758
             </a>

@@ -18,13 +18,15 @@
         mendapat berbagai keuntungan. Jadi tunggu apalagi? Yuk bergabung
         sekarang!
       </p>
-      <div
-        class="rounded-lg bg-[#B71A1B] p-3 md:w-[175px] w-[144px] mx-auto mt-6 cursor-pointer"
-      >
-        <p class="text-p md:text-sm text-xs font-semibold text-center">
-          Gabung Kemitraan
-        </p>
-      </div>
+      <a href="https://api.whatsapp.com/send?phone=62875126758" target="_blank">
+        <div
+          class="rounded-lg bg-[#B71A1B] p-3 md:w-[175px] w-[144px] mx-auto mt-6 cursor-pointer"
+        >
+          <p class="text-p md:text-sm text-xs font-semibold text-center">
+            Gabung Kemitraan
+          </p>
+        </div>
+      </a>
     </div>
   </div>
 </template>

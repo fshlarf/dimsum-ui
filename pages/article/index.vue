@@ -7,11 +7,11 @@
         src="/icons/arrow-back.svg"
         alt="back"
         class="cursor-pointer"
-        @click="$router.push('/')"
+        @click="$router.push('/#artikel')"
       />
       <div v-show="!isLoading" class="mt-[32px]">
         <div
-          class="w-full h-[166px] md:h-[250px] lg:h-[380px] overflow-hidden rounded-[25px]"
+          class="w-full h-[166px] md:h-[200px] lg:h-[250px] xl:h-[380px] overflow-hidden rounded-[15px] md:rounded-[25px]"
         >
           <img
             v-show="article.fileName"
@@ -62,18 +62,16 @@
             class="space-y-[16px] mt-[32px] lg:mt-0 col-span-3 lg:col-span-1"
           >
             <h1
-              class="text-[#B71A1B] text-base md:text-lg lg:text-[24px] font-bold"
+              class="text-[#B71A1B] text-base md:text-lg lg:text-[24px] font-bold mb-[16px]"
             >
               Artikel Terbaru
             </h1>
-            <div
-              class="flex lg:flex-col items-center gap-[12px] overflow-x-auto py-[10px]"
-            >
+            <div class="space-y-[12px]">
               <LatestArticles
                 v-for="(article, id) in latestArticle"
                 :key="id"
                 :article="article"
-                class="min-w-[80%] md:min-w-[50%] lg:w-[220px] xl:w-[250px]"
+                class="min-w-[80%] md:min-w-[50%] lg:w-full"
               />
             </div>
             <div
@@ -119,12 +117,12 @@ export default {
   },
   watch: {
     '$route.query'(val) {
-      this.getArticleById(val.articleId)
+      this.getArticleById(val.id)
     },
   },
   mounted() {
-    const { articleId } = this.$route.query
-    this.articleId = articleId
+    const { id } = this.$route.query
+    this.articleId = id
     if (this.articleId) {
       this.getArticleById(this.articleId)
     }
@@ -134,7 +132,7 @@ export default {
     async getArticleById(id) {
       this.isLoading = true
       try {
-        const getArticle = await this.$axios.get(`/articles/${id}`)
+        const getArticle = await this.$axios.get(`/customer/articles/${id}`)
         if (getArticle.data) {
           this.article = getArticle.data.data
           this.title = this.article.title
@@ -176,7 +174,7 @@ export default {
     },
     async getLatestArticle() {
       try {
-        const response = await this.$axios.get(`/articles`, {
+        const response = await this.$axios.get(`/customer/articles`, {
           params: this.filterLatestArticle,
         })
         this.latestArticle = response.data.data

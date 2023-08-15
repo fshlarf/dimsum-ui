@@ -14,23 +14,23 @@
       </div>
     </div>
     <div
-      class="flex mt-5 justify-center items-center md:bg-[#F6B205]/20 rounded-[20px] w-full md:w-max mx-auto"
+      class="flex mt-[20px] justify-center items-center md:bg-[#F6B205]/20 rounded-[20px] w-full md:w-max mx-auto"
     >
       <div
         v-for="(category, id) in categories"
         :key="id"
         class="h-full py-[12px] px-[8px] md:p-[12px] rounded-l-[20px] rounded-r-[20px] cursor-pointer transition-all duration-200 ease-linear"
         :class="{
-          'bg-[#F6B205]': category.value == filterProduct.categoryId,
+          'bg-[#F6B205]': category.id == filterProduct.categoryId,
         }"
-        @click="selectCategory(category.value)"
+        @click="onSelectCategory(category)"
       >
         <section class="flex items-center md:gap-[4px]">
           <img
             :src="[
-              category.value == filterProduct.categoryId
-                ? category.images + '-active.svg'
-                : category.images + '.svg',
+              category.id == filterProduct.categoryId
+                ? '/images/product/' + category.name + '-active.svg'
+                : '/images/product/' + category.name + '.svg',
             ]"
             alt="icon"
             class="hidden md:block"
@@ -38,7 +38,7 @@
           <p
             class="text-p md:text-sm text-xs font-bold md:pr-3 whitespace-nowrap"
             :class="[
-              category.value == filterProduct.categoryId
+              category.id == filterProduct.categoryId
                 ? 'text-white'
                 : 'text-[#F6B205]',
             ]"
@@ -50,16 +50,18 @@
     </div>
 
     <div
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-5 justify-center"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-center mt-[50px]"
     >
       <CardProduct
         v-for="(product, id) in products"
         :key="id"
         :product="product"
+        :category="selectedCategory"
       />
     </div>
 
     <ButtonShow
+      v-if="products.length > limitProductByScreenSize()"
       :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
       :mode="`${!isShow ? 'top' : 'bottom'}`"
       @click-show="toggleShow(), (isShow = !isShow)"
@@ -69,9 +71,9 @@
 </template>
 
 <script>
-import ModalInfo from './views/ModalInfo.vue'
+import ModalInfo from './views/ModalInfo'
 import ButtonShow from '~/components/atoms/ButtonShow'
-import CardProduct from '~/components/product/card-product.vue'
+import CardProduct from '~/components/product/card-product'
 export default {
   components: {
     ModalInfo,
@@ -84,94 +86,13 @@ export default {
       isShow: false,
       displayPriceDesktop: [],
       displayPriceMobile: [],
-      handleLimitByeScreen: false,
-      dataPrice: [
-        {
-          id: 1,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-        {
-          id: 2,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-        {
-          id: 3,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-        {
-          id: 4,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-        {
-          id: 5,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-        {
-          id: 6,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-        {
-          id: 7,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-        {
-          id: 8,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-        {
-          id: 9,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-        {
-          id: 10,
-          images: 'dimsum',
-          variant: 'Ayam',
-          pcs: '20',
-          reseller: 'Rp.55.000',
-          agent: 'Rp.50.000',
-        },
-      ],
+      handleLimitByScreen: false,
       products: [],
       filterProduct: {
         limit: null,
         search: '',
         categoryId: 1,
+        packaging: 'Box',
       },
       categories: [
         {
@@ -190,12 +111,25 @@ export default {
           value: 3,
         },
       ],
+      packagingList: [
+        {
+          name: 'Per Box',
+          value: 'Box',
+        },
+        {
+          name: 'Per Mika',
+          value: 'Mika',
+        },
+        {
+          name: 'Kemasan Plastik',
+          value: 'Plastik',
+        },
+      ],
+      selectedCategory: {},
     }
   },
   mounted() {
-    // this.displayPriceDesktop = this.dataPrice.slice(0, 9)
-    // this.displayPriceMobile = this.dataPrice.slice(0, 4)
-    this.getProducts()
+    this.getCategories()
   },
   methods: {
     toggleShow() {
@@ -212,25 +146,35 @@ export default {
       this.isShowModalInfo = true
     },
     showAll() {
-      // this.displayPriceDesktop = this.dataPrice
-      // this.displayPriceMobile = this.dataPrice
-      this.handleLimitByeScreen = true
+      this.handleLimitByScreen = true
       this.getProducts()
     },
     showLess() {
-      // this.displayPriceDesktop = this.dataPrice.slice(0, 9)
-      // this.displayPriceMobile = this.dataPrice.slice(0, 4)
-      this.handleLimitByeScreen = false
+      this.handleLimitByScreen = false
 
       this.getProducts()
     },
+    async getCategories() {
+      try {
+        const res = await this.$axios.get('/customer/categories')
+        this.categories = res.data.data
+        this.filterProduct = {
+          ...this.filterProduct,
+          categoryId: this.categories[0].id,
+        }
+        this.selectedCategory = this.categories[0]
+        this.getProducts()
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async getProducts() {
       try {
-        if (this.handleLimitByeScreen) {
+        if (this.handleLimitByScreen) {
           const res = await this.$axios.get('/customer/products', {
             params: (this.filterProduct = {
               ...this.filterProduct,
-              limit: null,
+              limit: 999999,
             }),
           })
           this.products = res.data.data
@@ -238,7 +182,7 @@ export default {
           const res = await this.$axios.get('/customer/products', {
             params: (this.filterProduct = {
               ...this.filterProduct,
-              limit: this.limitProductWithScreen(),
+              limit: this.limitProductByScreenSize(),
             }),
           })
           this.products = res.data.data
@@ -247,17 +191,26 @@ export default {
         console.log(error)
       }
     },
-    selectCategory(category) {
+    onSelectCategory(category) {
       this.filterProduct = {
         ...this.filterProduct,
         page: 1,
-        categoryId: category,
+        categoryId: category.id,
+      }
+      this.selectedCategory = category
+      this.getProducts()
+    },
+    onSelectPackaging(packaging) {
+      this.filterProduct = {
+        ...this.filterProduct,
+        page: 1,
+        packaging: packaging,
       }
       this.getProducts()
-      this.limitProductWithScreen()
     },
-    limitProductWithScreen(limitProduct) {
+    limitProductByScreenSize() {
       let screen = window.innerWidth
+      let limitProduct = 3
       if (screen <= 767) {
         limitProduct = 3
       } else if (screen < 1023) {
