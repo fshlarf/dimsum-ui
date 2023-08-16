@@ -9,7 +9,7 @@
     </div>
     <div class="p-5 grid justify-items-start items-center w-full">
       <div class="w-full overflow-hidden">
-        <section class="h-[120px] w-[80%]">
+        <section class="h-[120px]">
           <h1
             class="font-bold text-sm md:text-base lg:text-lg leading-7 truncate"
           >
