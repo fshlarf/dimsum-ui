@@ -40,10 +40,7 @@ export default {
   components: true,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/axios',
-  ],
+  buildModules: ['@nuxtjs/axios'],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
@@ -59,5 +56,4 @@ export default {
       },
     },
   },
-  // serverMiddleware: ['~/api/api-proxy.js'],
 }
