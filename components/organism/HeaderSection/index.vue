@@ -40,7 +40,7 @@
           class="btn flex gap-3 lg:h-11 h-10 lg:mt-6 mt-5 md:mx-0 mx-auto md:justify-start justify-center font-semibold lg:mb-0 mb-5"
         >
           <a
-            href="https://api.whatsapp.com/send?phone=62875126758"
+            href="https://api.whatsapp.com/send?phone=6281375126758"
             target="_blank"
             class="bg-[#F6B205] text-white lg:!text-base !text-sm !rounded-[10px] !px-4 flex items-center justify-center"
           >

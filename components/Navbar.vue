@@ -48,7 +48,7 @@
             <div class="flex gap-1">
               <img src="~/assets/atoms/telp.svg" alt="icon-telp" class="" />
               <a
-                href="https://api.whatsapp.com/send?phone=62875126758"
+                href="https://api.whatsapp.com/send?phone=6281375126758"
                 class="text-[#B71A1B]"
               >
                 0813 7512 6758
@@ -72,7 +72,7 @@
           <div class="flex gap-1 items-center">
             <img src="~/assets/atoms/telp.svg" alt="icon-telp" class="" />
             <a
-              href="https://api.whatsapp.com/send?phone=62875126758"
+              href="https://api.whatsapp.com/send?phone=6281375126758"
               class="text-[#B71A1B] break-keep"
             >
               0813 7512 6758

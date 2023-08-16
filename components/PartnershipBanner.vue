@@ -18,7 +18,10 @@
         mendapat berbagai keuntungan. Jadi tunggu apalagi? Yuk bergabung
         sekarang!
       </p>
-      <a href="https://api.whatsapp.com/send?phone=62875126758" target="_blank">
+      <a
+        href="https://api.whatsapp.com/send?phone=6281375126758"
+        target="_blank"
+      >
         <div
           class="rounded-lg bg-[#B71A1B] p-3 md:w-[175px] w-[144px] mx-auto mt-6 cursor-pointer"
         >
