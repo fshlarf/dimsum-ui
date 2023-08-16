@@ -8,7 +8,7 @@
           Yuk, Gabung Menjadi Mitra.
         </h1>
         <div class="absolute bottom-0 lg:right-0 right-2">
-          <img src="/icons/vector.svg" alt="" class="w-[61px] md:w-auto" />
+          <img src="/icons/underline.svg" alt="" class="w-[61px] md:w-auto" />
         </div>
       </div>
       <p
