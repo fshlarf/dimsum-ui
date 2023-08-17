@@ -49,6 +49,7 @@
               <img src="~/assets/atoms/telp.svg" alt="icon-telp" class="" />
               <a
                 href="https://api.whatsapp.com/send?phone=6281375126758"
+                target="_blank"
                 class="text-[#B71A1B]"
               >
                 0813 7512 6758
@@ -73,6 +74,7 @@
             <img src="~/assets/atoms/telp.svg" alt="icon-telp" class="" />
             <a
               href="https://api.whatsapp.com/send?phone=6281375126758"
+              target="_blank"
               class="text-[#B71A1B] break-keep"
             >
               0813 7512 6758

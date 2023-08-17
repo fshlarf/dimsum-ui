@@ -1,5 +1,8 @@
 <template>
-  <div class="bg-white box-article overflow-hidden">
+  <div
+    @click="goToDetailsArticle(article.id)"
+    class="bg-white box-article overflow-hidden cursor-pointer"
+  >
     <div class="w-full h-[149px] overflow-hidden lg:h-[194px] bg-white">
       <img
         :id="`article-${article.id}`"

@@ -111,11 +111,17 @@
               </div>
             </section>
           </div>
-          <button
-            class="w-full bg-[#F6B205] text-white py-[14px] lg:py-[16px] text-sm lg:text-base font-semibold rounded-[10px] mt-[41px] hover:opacity-80"
+          <a
+            href="https://api.whatsapp.com/send?phone=6281375126758"
+            target="_blank"
+            class=""
           >
-            Chat Admin Produsen Dimsum
-          </button>
+            <button
+              class="w-full bg-[#F6B205] text-white py-[14px] lg:py-[16px] text-sm lg:text-base font-semibold rounded-[10px] mt-[41px] hover:opacity-80"
+            >
+              Chat Admin Produsen Dimsum
+            </button>
+          </a>
         </section>
       </div>
     </div>
