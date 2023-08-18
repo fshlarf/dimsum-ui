@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white">
-    <div class="top-article flex items-center gap-[16px] p-[16px]">
+    <div class="top-article flex items-start gap-[16px] p-[16px]">
       <img
         alt="dimsum"
         class="w-[70px] h-[70px] xl:w-[100px] xl:h-[100px] rounded-[5px] object-cover"
@@ -8,7 +8,7 @@
       />
       <div class="">
         <p
-          class="text-xs md:text-sm lg:text-base text-[#4D4D4D] max-h-[20px] overflow-y-hidden"
+          class="text-xs md:text-sm lg:text-base text-[#4D4D4D] max-h-[20px] overflow-y-hidden two-line"
         >
           {{ article.title }}
         </p>

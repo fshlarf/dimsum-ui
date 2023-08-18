@@ -2,11 +2,9 @@
   <div
     class="max-w-[1120px] md:mt-[52px] mt-6 2xl:mx-auto lg:mx-[161px] md:mx-10"
   >
-    <img
-      src="images/product/dimsum-mobile.png"
-      class="text-center md:hidden mx-auto mt-6"
-      alt="dimsum"
-    />
+    <div class="md:hidden w-full">
+      <Carousel />
+    </div>
     <div
       class="md:flex md:justify-between flex-nowrap justify-center md:pt-[30px] w-full"
     >
@@ -60,12 +58,8 @@
           class="lg:w-[338px] w-[250px] mr-[30px]"
           alt="Rectangle-header"
         />
-        <div class="">
-          <img
-            src="images/product/dimsum-1.png"
-            class="absolute -top-[30px] right-0 lg:w-[338px] w-[250px] z-10"
-            alt="dimsum"
-          />
+        <div class="absolute -top-[30px] right-0 z-10">
+          <Carousel />
         </div>
       </div>
     </div>
@@ -73,7 +67,12 @@
 </template>
 
 <script>
+import Carousel from '~/components/organism/HeaderSection/views/carousel.vue'
+
 export default {
+  components: {
+    Carousel,
+  },
   methods: {
     scrollToProductSection() {
       const productSection = document.getElementById('product')
