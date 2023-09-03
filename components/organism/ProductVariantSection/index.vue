@@ -50,7 +50,7 @@
     </div>
 
     <div
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-center mt-[50px]"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-center mt-[20px] lg:mt-[40px]"
     >
       <CardProduct
         v-for="(product, id) in products"
@@ -92,7 +92,7 @@ export default {
         limit: null,
         search: '',
         categoryId: 1,
-        packaging: 'Box',
+        packaging: '',
       },
       categories: [
         {
@@ -114,15 +114,15 @@ export default {
       packagingList: [
         {
           name: 'Per Box',
-          value: 'Box',
+          value: 'box',
         },
         {
           name: 'Per Mika',
-          value: 'Mika',
+          value: 'mika',
         },
         {
           name: 'Kemasan Plastik',
-          value: 'Plastik',
+          value: 'plastik',
         },
       ],
       selectedCategory: {},
@@ -151,7 +151,6 @@ export default {
     },
     showLess() {
       this.handleLimitByScreen = false
-
       this.getProducts()
     },
     async getCategories() {
@@ -171,7 +170,7 @@ export default {
     async getProducts() {
       try {
         if (this.handleLimitByScreen) {
-          const res = await this.$axios.get('/customer/products', {
+          const res = await this.$axios.get('/customer/product-variants', {
             params: (this.filterProduct = {
               ...this.filterProduct,
               limit: 999999,
@@ -179,7 +178,7 @@ export default {
           })
           this.products = res.data.data
         } else {
-          const res = await this.$axios.get('/customer/products', {
+          const res = await this.$axios.get('/customer/product-variants', {
             params: (this.filterProduct = {
               ...this.filterProduct,
               limit: this.limitProductByScreenSize(),
@@ -210,9 +209,9 @@ export default {
     },
     limitProductByScreenSize() {
       let screen = window.innerWidth
-      let limitProduct = 3
+      let limitProduct = 4
       if (screen <= 767) {
-        limitProduct = 3
+        limitProduct = 4
       } else if (screen < 1023) {
         limitProduct = 6
       } else {

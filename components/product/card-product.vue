@@ -1,21 +1,21 @@
 <template>
   <div
     class="box-price md:h-[138px] w-full max-w-[330px] flex md:gap-4 gap-3 items-center mx-auto p-[12px] cursor-pointer"
-    @click="$router.push(`/product/detail?id=${product.id}`)"
+    @click="$router.push(`/product/detail?id=${product.productId}`)"
   >
     <div
       class="w-[90px] h-[90px] lg:w-[104px] lg:h-[101px] overflow-hidden rounded-[8px]"
     >
       <img
-        :id="`product-${product.id}`"
-        :alt="`dimsum-${product.name}`"
+        :src="product.imageLink"
+        :alt="`dimsum-${product.productName}`"
         class="w-full h-full object-cover object-center mx-auto"
       />
     </div>
     <div class="w-[211px] space-y-[10px]">
       <div class="-mb-1">
-        <p class="md:text-sm text-xs font-semibold one-line">
-          {{ product.name }}
+        <p class="md:text-sm text-xs font-semibold one-line overflow-hidden">
+          {{ product.productName }}
         </p>
       </div>
       <div class="flex justify-between items-center">

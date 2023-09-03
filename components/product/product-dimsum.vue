@@ -1,25 +1,25 @@
 <template>
   <div>
-    <div class="grid grid-cols-4 mt-5 gap-5 justify-center items-center">
+    <!-- <div class="grid grid-cols-4 mt-5 gap-5 justify-center items-center"> -->
+    <div
+      class="relative cursor-pointer w-[154px] h-[128px] md:w-[200px] md:h-[170px] xl:w-[264px] xl:h-[232px] overflow-hidden rounded-[12px]"
+      @mouseover="isHover = true"
+      @mouseleave="isHover = false"
+      @click="$router.push(`/product/detail?id=${product.id}`)"
+    >
+      <img
+        alt="dimsum-image"
+        :id="`product-image-${product.id}`"
+        class="w-full h-full object-cover object-center"
+      />
       <div
-        class="relative cursor-pointer w-[154px] h-[128px] md:w-[200px] md:h-[170px] xl:w-[264px] xl:h-[232px] overflow-hidden rounded-[12px]"
-        @mouseover="isHover = true"
-        @mouseleave="isHover = false"
-        @click="$router.push(`/product/detail?id=${product.id}`)"
+        v-if="isHover"
+        class="text-p absolute bottom-0 left-0 w-full text-[#B71A1B] md:text-base text-xs font-medium bg-white bg-opacity-60 text-center py-[9px] leading-5"
       >
-        <img
-          alt="dimsum-image"
-          :id="`product-image-${product.id}`"
-          class="w-full h-full object-cover object-center"
-        />
-        <div
-          v-if="isHover"
-          class="text-p absolute bottom-0 left-0 w-full text-[#B71A1B] md:text-base text-xs font-medium bg-white bg-opacity-60 md:pl-[21px] pl-[5px] pt-[9px] pb-[9.5px] leading-5 text-center"
-        >
-          {{ product.name }}
-        </div>
+        {{ product.name }}
       </div>
     </div>
+    <!-- </div> -->
   </div>
 </template>
 <script>

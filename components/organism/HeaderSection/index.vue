@@ -3,7 +3,7 @@
     class="max-w-[1120px] md:mt-[52px] mt-6 2xl:mx-auto lg:mx-[161px] md:mx-10"
   >
     <div class="md:hidden w-full">
-      <Carousel />
+      <Carousel :product-list="products" :is-loading="isLoading" />
     </div>
     <div
       class="md:flex md:justify-between flex-nowrap justify-center md:pt-[30px] w-full"
@@ -59,7 +59,7 @@
           alt="Rectangle-header"
         />
         <div class="absolute -top-[30px] right-0 z-10">
-          <Carousel />
+          <Carousel :product-list="products" :is-loading="isLoading" />
         </div>
       </div>
     </div>
@@ -73,6 +73,20 @@ export default {
   components: {
     Carousel,
   },
+  data() {
+    return {
+      filterProduct: {
+        page: 1,
+        limit: 5,
+        categoryId: 1,
+      },
+      products: [],
+      isLoading: true,
+    }
+  },
+  mounted() {
+    this.getProducts()
+  },
   methods: {
     scrollToProductSection() {
       const productSection = document.getElementById('product')
@@ -81,6 +95,16 @@ export default {
         block: 'start',
         inline: 'nearest',
       })
+    },
+    async getProducts() {
+      this.isLoading = true
+      try {
+        const res = await this.$axios.get('/customer/products/favorited')
+        this.products = res.data.data
+      } catch (error) {
+        console.log(error)
+      }
+      this.isLoading = false
     },
   },
 }

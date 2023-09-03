@@ -1,6 +1,6 @@
 <template>
   <div
-    id="kemitraan"
+    id="partner"
     class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5"
   >
     <div
@@ -22,89 +22,108 @@
       Berikut ini Daftar Mitra yang Berprestasi selama menjadi mitra di Produsen
       Dimsum Medan.
     </div>
-    <div class="md:block hidden">
-      <div class="grid md:grid-cols-3 lg:gap-6 gap-5 mt-5">
-        <div v-for="(mitra, id) in displayMitraDesktop" :key="id">
-          <div class="box-mitra lg:space-y-[16px] space-y-3">
-            <div class="flex justify-between md:py-3 lg:pt-0 pt-3 lg:px-4 px-3">
-              <div class="flex gap-3 items-center">
-                <img src="~/assets/atoms/profil-mitra.png" alt="" />
-                <div>
-                  <h1 class="font-bold lg::text-base text-sm">
-                    {{ mitra.name }}
-                  </h1>
-                  <div class="text-p text-xs text-[#555]">
-                    {{ mitra.address }}
+    <template v-if="!isLoading">
+      <div class="md:block hidden">
+        <div class="grid md:grid-cols-3 lg:gap-6 gap-5 mt-5">
+          <div v-for="(mitra, id) in partners.list" :key="id">
+            <div class="box-mitra lg:space-y-[16px] space-y-3">
+              <div
+                class="flex justify-between md:py-3 lg:pt-0 pt-3 lg:px-4 px-3"
+              >
+                <div class="flex gap-3 items-center">
+                  <img
+                    class="w-[42px] h-[42px] rounded-full object-center object-cover"
+                    :src="mitra.profileImage"
+                    alt="foto mitra"
+                  />
+                  <div>
+                    <h1 class="font-bold lg::text-base text-sm">
+                      {{ mitra.name }}
+                    </h1>
+                    <div class="text-p text-xs text-[#555]">
+                      {{ mitra.address }}
+                    </div>
                   </div>
                 </div>
+                <img
+                  src="~/assets/atoms/quote.svg"
+                  alt="icon-kutip"
+                  class="w-[37px] lg:w-[54px]"
+                />
               </div>
-              <img
-                src="~/assets/atoms/quote.svg"
-                alt="icon-kutip"
-                class="w-[37px] lg:w-[54px]"
-              />
-            </div>
-            <hr class="md:mx-0 mx-3" />
-            <div class="text-p text-xs text-[#555] md:py-3 md:px-4 px-3">
-              {{ mitra.preview }}
-            </div>
-            <div
-              class="flex justify-between items-center md:py-3 md:px-4 px-3 pb-3"
-            >
-              <div class="text-p font-medium">
-                <p class="text-xs text-[#555]">Rewards</p>
-                <p class="text-sm text-[#F6B205] mt-1">{{ mitra.reward }}</p>
+              <hr class="md:mx-0 mx-3" />
+              <div class="text-p text-xs text-[#555] md:py-3 md:px-4 px-3">
+                {{ mitra.testimony }}
               </div>
-              <img src="~/assets/atoms/icon-reward.png" alt="icon-reward" />
+              <div
+                class="flex justify-between items-center md:py-3 md:px-4 px-3 pb-3"
+              >
+                <div class="text-p font-medium">
+                  <p class="text-xs text-[#555]">Rewards</p>
+                  <p class="text-sm text-[#F6B205] mt-1">
+                    {{ mitra.rewardName }}
+                  </p>
+                </div>
+                <img src="~/assets/atoms/icon-reward.png" alt="icon-reward" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="md:hidden">
-      <div class="grid gap-5 mt-5">
-        <div v-for="(mitra, id) in displayMitraMobile" :key="id">
-          <div class="box-mitra lg:space-y-[16px] space-y-3">
-            <div class="flex justify-between md:py-3 lg:pt-0 pt-3 lg:px-4 px-3">
-              <div class="flex gap-3 items-center">
-                <img src="~/assets/atoms/profil-mitra.png" alt="" />
-                <div>
-                  <h1 class="font-bold lg::text-base text-sm">
-                    {{ mitra.name }}
-                  </h1>
-                  <div class="text-p text-xs text-[#555]">
-                    {{ mitra.address }}
+      <div class="md:hidden">
+        <div class="grid gap-5 mt-5">
+          <div v-for="(mitra, id) in partners.list" :key="id">
+            <div class="box-mitra lg:space-y-[16px] space-y-3">
+              <div
+                class="flex justify-between md:py-3 lg:pt-0 pt-3 lg:px-4 px-3"
+              >
+                <div class="flex gap-3 items-center">
+                  <img
+                    class="w-[36px] h-[36px] rounded-full object-center object-cover"
+                    :src="mitra.profileImage"
+                    alt="foto mitra"
+                  />
+                  <div>
+                    <h1 class="font-bold lg::text-base text-sm">
+                      {{ mitra.name }}
+                    </h1>
+                    <div class="text-p text-xs text-[#555]">
+                      {{ mitra.address }}
+                    </div>
                   </div>
                 </div>
+                <img
+                  src="~/assets/atoms/quote.svg"
+                  alt="icon-kutip"
+                  class="w-[37px] lg:w-[54px]"
+                />
               </div>
-              <img
-                src="~/assets/atoms/quote.svg"
-                alt="icon-kutip"
-                class="w-[37px] lg:w-[54px]"
-              />
-            </div>
-            <hr class="md:mx-0 mx-3" />
-            <div class="text-p text-xs text-[#555] md:py-3 md:px-4 px-3">
-              {{ mitra.preview }}
-            </div>
-            <div
-              class="flex justify-between items-center md:py-3 md:px-4 px-3 pb-3"
-            >
-              <div class="text-p font-medium">
-                <p class="text-xs text-[#555]">Rewards</p>
-                <p class="text-sm text-[#F6B205] mt-1">{{ mitra.reward }}</p>
+              <hr class="md:mx-0 mx-3" />
+              <div class="text-p text-xs text-[#555] md:py-3 md:px-4 px-3">
+                {{ mitra.testimony }}
               </div>
-              <img src="~/assets/atoms/icon-reward.png" alt="icon-reward" />
+              <div
+                class="flex justify-between items-center md:py-3 md:px-4 px-3 pb-3"
+              >
+                <div class="text-p font-medium">
+                  <p class="text-xs text-[#555]">Rewards</p>
+                  <p class="text-sm text-[#F6B205] mt-1">
+                    {{ mitra.rewardName }}
+                  </p>
+                </div>
+                <img src="~/assets/atoms/icon-reward.png" alt="icon-reward" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <ButtonShow
-      :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
-      :mode="`${!isShow ? 'top' : 'bottom'}`"
-      @click-show="toggleShow(), (isShow = !isShow)"
-    />
+      <ButtonShow
+        v-if="partners.list.length > filterPartner.limit"
+        :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
+        :mode="`${!isShow ? 'top' : 'bottom'}`"
+        @click-show="toggleShow(), (isShow = !isShow)"
+      />
+    </template>
   </div>
 </template>
 
@@ -120,79 +139,32 @@ export default {
       displayMitraDesktop: [],
       displayMitraMobile: [],
       isShow: false,
-      dataMitra: [
-        {
-          id: 1,
-          name: 'Guy Hawkins',
-          address: 'Semarang, Jawa Tengah',
-          preview:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu.',
-          reward: '1/4 Dinar',
-        },
-        {
-          id: 2,
-          name: 'Guy Hawkins',
-          address: 'Semarang, Jawa Tengah',
-          preview:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu.',
-          reward: '1/4 Dinar',
-        },
-        {
-          id: 3,
-          name: 'Guy Hawkins',
-          address: 'Semarang, Jawa Tengah',
-          preview:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu.',
-          reward: '1/4 Dinar',
-        },
-        {
-          id: 4,
-          name: 'Guy Hawkins',
-          address: 'Semarang, Jawa Tengah',
-          preview:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu.',
-          reward: '1/4 Dinar',
-        },
-        {
-          id: 5,
-          name: 'Guy Hawkins',
-          address: 'Semarang, Jawa Tengah',
-          preview:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu.',
-          reward: '1/4 Dinar',
-        },
-        {
-          id: 6,
-          name: 'Guy Hawkins',
-          address: 'Semarang, Jawa Tengah',
-          preview:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu.',
-          reward: '1/4 Dinar',
-        },
-        {
-          id: 7,
-          name: 'Guy Hawkins',
-          address: 'Semarang, Jawa Tengah',
-          preview:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu.',
-          reward: '1/4 Dinar',
-        },
-        {
-          id: 8,
-          name: 'Guy Hawkins',
-          address: 'Semarang, Jawa Tengah',
-          preview:
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cursus nibh mauris, nec turpis orci lectus maecenas. Suspendisse sed magna eget nibh in turpis. Consequat duis diam lacus arcu.',
-          reward: '1/4 Dinar',
-        },
-      ],
+      isLoading: true,
+      filterPartner: {
+        page: 1,
+        limit: 10,
+      },
+      partners: {
+        list: [],
+        paginatiom: {},
+      },
     }
   },
   mounted() {
-    this.displayMitraDesktop = this.dataMitra.slice(0, 6)
-    this.displayMitraMobile = this.dataMitra.slice(0, 3)
+    this.defineLimitByScreenSize()
+    this.getPartners()
   },
   methods: {
+    defineLimitByScreenSize() {
+      let screen = window.innerWidth
+      let limitPartner = 3
+      if (screen <= 767) {
+        limitPartner = 3
+      } else {
+        limitPartner = 6
+      }
+      this.filterPartner.limit = limitPartner
+    },
     toggleShow() {
       if (!this.isShow) {
         this.showAll()
@@ -201,12 +173,30 @@ export default {
       }
     },
     showAll() {
-      this.displayMitraDesktop = this.dataMitra
-      this.displayMitraMobile = this.dataMitra
+      this.filterPartner.limit = 999
+      this.getPartners()
     },
     showLess() {
-      this.displayMitraDesktop = this.dataMitra.slice(0, 6)
-      this.displayMitraMobile = this.dataMitra.slice(0, 3)
+      this.defineLimitByScreenSize()
+      this.getPartners()
+    },
+    async getPartners() {
+      this.isLoading = true
+      try {
+        const res = await this.$axios.get('/customer/partners', {
+          params: this.filterPartner,
+        })
+        if (res.data) {
+          const { data, pagination } = res.data
+          this.partners = {
+            list: data,
+            pagination,
+          }
+        }
+      } catch (error) {
+        console.log(error)
+      }
+      this.isLoading = false
     },
   },
 }

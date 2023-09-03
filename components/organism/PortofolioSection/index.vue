@@ -4,12 +4,12 @@
   >
     <div
       v-if="!isLoading"
-      class="grid lg:grid-cols-4 grid-cols-2 gap-[30px] lg:h-[148px] h-[172px] lg:items-center items-start justify-center lg:p-0 p-5"
+      class="grid lg:grid-cols-4 grid-cols-2 gap-[30px] lg:h-[148px] h-[172px] lg:items-center xl:flex xl:gap-[100px] items-start justify-center lg:p-0 p-5"
     >
       <div v-for="(porto, id) in portofolios" :key="id">
         <div class="flex md:gap-3 gap-1 items-start md:justify-center">
           <img
-            class="lg:w-auto md:w-10 w-7"
+            class="lg:w-[48px] w-[28px]"
             :id="`portfolio-${porto.id}`"
             :alt="porto.name"
           />

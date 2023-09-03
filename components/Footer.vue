@@ -16,18 +16,44 @@
         >
           <div class="lg:space-y-8 space-y-4">
             <h2>Tentang Produk</h2>
-            <h3 class="pt-2 md:pt-0">Produk</h3>
-            <h3>Sertifikasi Produk</h3>
-            <h3>Quality Assurance</h3>
-            <h3>Proses Produk</h3>
-            <h3>Bahan Baku</h3>
-            <h3>Mesin Produksi</h3>
+            <h3
+              class="pt-2 md:pt-0"
+              role="button"
+              @click="scrollToSection('product')"
+            >
+              Produk
+            </h3>
+            <h3 role="button" @click="scrollToSection('sertification')">
+              Sertifikasi Produk
+            </h3>
+            <h3 role="button" @click="scrollToSection('quality-assurance')">
+              Quality Assurance
+            </h3>
+            <h3 role="button" @click="scrollToSection('production-process')">
+              Proses Produk
+            </h3>
+            <h3 role="button" @click="scrollToSection('production-material')">
+              Bahan Baku
+            </h3>
+            <h3 role="button" @click="scrollToSection('production-machine')">
+              Mesin Produksi
+            </h3>
           </div>
           <div class="lg:space-y-8 space-y-4">
             <h2>Kemitraan</h2>
-            <h3 class="pt-2 md:pt-0">Mitra Berprestasi</h3>
-            <h3>Benefit Kemitraan</h3>
-            <h3>Reward Kemitraan</h3>
+            <h3
+              class="pt-2 md:pt-0"
+              role="button"
+              @click="scrollToSection('partner')"
+            >
+              Mitra Berprestasi
+            </h3>
+            <h3 role="button" @click="scrollToSection('partner-benefit')">
+              Benefit Kemitraan
+            </h3>
+            <h3 role="button" @click="scrollToSection('reward')">
+              Reward Kemitraan
+            </h3>
             <div class="pt-2 space-y-4 lg:hidden">
               <h2>Social Media</h2>
               <div class="grid grid-cols-4">
@@ -63,10 +89,25 @@
     <div
       class="copy-right max-w-[1120px] xl:mx-auto lg:mx-10 text-white py-6 lg:text-left text-center"
     >
-      Copyright @2023 Produsendimsum.com
+      Copyright @2023 TBM Group
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    scrollToSection(id) {
+      const section = document.getElementById(id)
+      section.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest',
+      })
+    },
+  },
+}
+</script>
 
 <style scoped>
 h2 {

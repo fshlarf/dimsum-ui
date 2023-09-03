@@ -9,6 +9,24 @@
       class="slider-container overflow-hidden relative rounded-[12px] lg:rounded-[30px] w-[320px] h-[260px] md:w-[280px] md:h-[300px] xl:w-[340px] xl:h-[360px] mx-auto"
     >
       <div
+        v-if="!isLoading && productList.length > 0"
+        class="slider flex transition-transform ease-in-out duration-500 w-full h-full"
+        :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
+      >
+        <div
+          v-for="(product, index) in productList"
+          :key="index"
+          class="slider-item flex-none !w-full !h-full overflow-hidden"
+        >
+          <img
+            :src="product.imageLink"
+            alt="Slider Image"
+            class="image w-full h-full object-cover object-bottom md:object-center"
+          />
+        </div>
+      </div>
+      <div
+        v-else
         class="slider flex transition-transform ease-in-out duration-500 w-full h-full"
         :style="{ transform: `translateX(-${currentIndex * 100}%)` }"
       >
@@ -36,7 +54,22 @@
       >
         <ChevronRight color="#fff" />
       </div>
-      <div class="w-full absolute z-20 bottom-5 dots flex justify-center">
+      <div
+        v-if="!isLoading && productList.length > 0"
+        class="w-full absolute z-20 bottom-5 dots flex justify-center"
+      >
+        <div
+          v-for="(product, index) in productList"
+          :key="index"
+          class="dot w-[6px] h-[6px] rounded-full bg-[#BBB6B6] mx-[5px] cursor-pointer"
+          :class="{ '!bg-white !w-[26px]': index === currentIndex }"
+          @click="goToSlide(index)"
+        ></div>
+      </div>
+      <div
+        v-else
+        class="w-full absolute z-20 bottom-5 dots flex justify-center"
+      >
         <div
           v-for="(image, index) in images"
           :key="index"
@@ -58,6 +91,16 @@ export default {
     ChevronLeft,
     ChevronRight,
   },
+  props: {
+    productList: {
+      type: Array,
+      default: () => [],
+    },
+    isLoading: {
+      type: Boolean,
+      default: true,
+    },
+  },
   data() {
     return {
       images: [
@@ -74,11 +117,18 @@ export default {
   },
   methods: {
     prevSlide() {
-      this.currentIndex =
-        (this.currentIndex - 1 + this.images.length) % this.images.length
+      const length =
+        this.productList.length > 0
+          ? this.productList.length
+          : this.images.length
+      this.currentIndex = (this.currentIndex - 1 + length) % length
     },
     nextSlide() {
-      this.currentIndex = (this.currentIndex + 1) % this.images.length
+      const length =
+        this.productList.length > 0
+          ? this.productList.length
+          : this.images.length
+      this.currentIndex = (this.currentIndex + 1) % length
     },
     goToSlide(index) {
       this.currentIndex = index

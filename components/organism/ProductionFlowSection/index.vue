@@ -1,5 +1,8 @@
 <template>
-  <div class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 ml-5">
+  <div
+    id="production"
+    class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 ml-5"
+  >
     <div class="text-center">
       <h1
         class="md:text-[30px] text-[20px] font-bold md:leading-none leading-[27px]"
@@ -13,9 +16,10 @@
         pembuatan produk.
       </div>
     </div>
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto hide-scrollbar">
       <div class="mt-9 flex lg:gap-8 gap-4 min-w-[700px]">
         <div
+          id="production-process"
           class="bg-[#B71A1B1A] rounded-2xl bg-opacity-10 lg:p-8 p-4 md:!w-[352px] !w-[198px] lg:border-none border-[1px] border-[#B71A1B1A] border-opacity-5"
         >
           <h1 class="md:text-xl text-sm text-[#B71A1B] font-bold">
@@ -37,6 +41,7 @@
           </div>
         </div>
         <div
+          id="production-material"
           class="bg-[#F6B2051A] rounded-2xl bg-opacity-10 lg:p-8 p-4 md:!w-[352px] !w-[198px] lg:border-none border-[1px] border-[#F6B2051A] border-opacity-5"
         >
           <h1
@@ -60,6 +65,7 @@
           </div>
         </div>
         <div
+          id="production-machine"
           class="bg-[#55230F] rounded-2xl bg-opacity-10 lg:p-8 p-4 md:!w-[352px] !w-[198px] lg:border-none border-[1px] border-[#55230F] border-opacity-5"
         >
           <h1 class="md:text-xl text-sm text-[#55230F] font-bold">

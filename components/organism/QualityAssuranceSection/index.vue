@@ -1,5 +1,8 @@
 <template>
-  <div class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5">
+  <div
+    id="quality-assurance"
+    class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5"
+  >
     <div class="grid md:grid-cols-2 items-center justify-center">
       <div class="order-2 md:order-1 mt-5 md:mt-0">
         <h1

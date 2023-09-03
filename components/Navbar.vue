@@ -125,7 +125,7 @@ export default {
           inline: 'nearest',
         })
       } else if (id === 2) {
-        const kemitraanSection = document.getElementById('kemitraan')
+        const kemitraanSection = document.getElementById('partner')
         kemitraanSection.scrollIntoView({
           behavior: 'smooth',
           block: 'start',

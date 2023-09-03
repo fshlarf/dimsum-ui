@@ -1,5 +1,8 @@
 <template>
-  <div class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5">
+  <div
+    id="sertification"
+    class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5"
+  >
     <h1 class="md:text-[30px] text-xl font-bold text-center">
       <span class="text-[#F6B205]">Sertifikasi </span>Produk
     </h1>

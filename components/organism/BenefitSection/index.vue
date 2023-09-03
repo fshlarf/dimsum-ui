@@ -1,5 +1,5 @@
 <template>
-  <div class="benefit py-8 mt-[52px]">
+  <div id="partner-benefit" class="benefit py-8 mt-[52px]">
     <div class="max-w-[1120px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5">
       <div class="md:flex flex-nowrap gap-[68px] items-center">
         <div class="md:hidden text-center">

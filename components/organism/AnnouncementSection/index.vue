@@ -3,15 +3,17 @@
     v-if="!isLoading && announcement && announcement.name"
     class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5"
   >
-    <div
-      class="w-full h-[76px] md:h-[160px] xl:h-[260px] overflow-hidden rounded-[6px] md:rounded-[8px] lg:rounded-[14px] xl:rounded-[20px]"
+    <a
+      :href="announcement.link"
+      target="_blank"
+      class="block w-full max-h-[100px] md:max-h-[200px] xl:max-h-[300px] overflow-hidden rounded-[6px] md:rounded-[8px] lg:rounded-[14px] xl:rounded-[20px]"
     >
       <img
-        class="w-full h-full object-cover object-center"
+        class="w-full max-h-[100px] md:max-h-[200px] xl:max-h-[300px] object-cover object-center"
         :id="`announcement-${announcement.id}`"
         alt="pengumuman"
       />
-    </div>
+    </a>
   </div>
 </template>
 

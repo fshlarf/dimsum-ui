@@ -1,5 +1,6 @@
 <template>
   <div
+    id="reward"
     class="max-w-[1120px] 2xl:mx-auto md:mt-[52px] mt-6 lg:mx-[161px] md:mx-10 mx-5"
   >
     <div class="text-center md:pt-0 pt-5">
