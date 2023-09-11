@@ -94,7 +94,7 @@ export default {
         const res = await this.$axios.get('/customer/products', {
           params: (this.filterProduct = {
             ...this.filterProduct,
-            limit: this.handleLimitByScreen,
+            limit: 10,
           }),
         })
         this.products = res.data.data
