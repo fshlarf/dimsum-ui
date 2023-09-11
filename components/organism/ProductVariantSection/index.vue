@@ -61,7 +61,7 @@
     </div>
 
     <ButtonShow
-      v-if="products.length > limitProductByScreenSize()"
+      v-if="pagination.totalResults > limitProductByScreenSize()"
       :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
       :mode="`${!isShow ? 'top' : 'bottom'}`"
       @click-show="toggleShow(), (isShow = !isShow)"
@@ -88,6 +88,7 @@ export default {
       displayPriceMobile: [],
       handleLimitByScreen: false,
       products: [],
+      pagination: {},
       filterProduct: {
         limit: null,
         search: '',
@@ -177,14 +178,16 @@ export default {
             }),
           })
           this.products = res.data.data
+          this.pagination = res.data.pagination
         } else {
           const res = await this.$axios.get('/customer/product-variants', {
             params: (this.filterProduct = {
               ...this.filterProduct,
-              limit: 10,
+              limit: this.limitProductByScreenSize(),
             }),
           })
           this.products = res.data.data
+          this.pagination = res.data.pagination
         }
       } catch (error) {
         console.log(error)

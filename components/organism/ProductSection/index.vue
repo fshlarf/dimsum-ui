@@ -44,7 +44,10 @@
         />
       </div>
     </div>
-    <nuxt-link v-if="products.length > handleLimitByScreen" to="/product">
+    <nuxt-link
+      v-if="pagination.totalResults > handleLimitByScreen"
+      to="/product"
+    >
       <ButtonShow
         :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
         :mode="`${!isShow ? 'top' : 'bottom'}`"
@@ -67,6 +70,7 @@ export default {
       handleLimitByScreen: null,
       isShow: false,
       products: [],
+      pagination: {},
       filterProduct: {
         limit: null,
         search: '',
@@ -94,12 +98,11 @@ export default {
         const res = await this.$axios.get('/customer/products', {
           params: (this.filterProduct = {
             ...this.filterProduct,
-            limit: 10,
+            limit: this.handleLimitByScreen,
           }),
         })
         this.products = res.data.data
-
-        this.products = res.data.data
+        this.pagination = res.data.pagination
       } catch (error) {
         console.log(error)
       }
