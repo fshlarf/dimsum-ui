@@ -22,117 +22,78 @@
       Berikut ini Daftar Mitra yang Berprestasi selama menjadi mitra di Produsen
       Dimsum Medan.
     </div>
-    <template v-if="!isLoading">
-      <div class="md:block hidden">
-        <div class="grid md:grid-cols-3 lg:gap-6 gap-5 mt-5">
-          <div v-for="(mitra, id) in partners.list" :key="id">
-            <div class="box-mitra lg:space-y-[16px] space-y-3">
-              <div
-                class="flex justify-between md:py-3 lg:pt-0 pt-3 lg:px-4 px-3"
-              >
-                <div class="flex gap-3 items-center">
-                  <img
-                    class="w-[42px] h-[42px] rounded-full object-center object-cover"
-                    :src="mitra.profileImage"
-                    alt="foto mitra"
-                  />
-                  <div>
-                    <h1 class="font-bold lg::text-base text-sm">
-                      {{ mitra.name }}
-                    </h1>
-                    <div class="text-p text-xs text-[#555]">
-                      {{ mitra.address }}
-                    </div>
+    <div class="">
+      <div
+        v-if="!isLoading"
+        class="grid grid-cols-1 md:grid-cols-3 lg:gap-6 gap-5 mt-5"
+      >
+        <div v-for="(mitra, id) in partners.list" :key="id">
+          <div class="box-mitra">
+            <div class="flex justify-between py-3 lg:px-4 px-3">
+              <div class="flex gap-3 items-center">
+                <img
+                  class="w-[42px] h-[42px] rounded-full object-center object-cover"
+                  :src="mitra.profileImage"
+                  alt="foto mitra"
+                />
+                <div>
+                  <h1 class="font-bold lg::text-base text-sm">
+                    {{ mitra.name }}
+                  </h1>
+                  <div class="text-p text-xs text-[#555]">
+                    {{ mitra.address }}
                   </div>
                 </div>
-                <img
-                  src="~/assets/atoms/quote.svg"
-                  alt="icon-kutip"
-                  class="w-[37px] lg:w-[54px]"
-                />
               </div>
-              <hr class="md:mx-0 mx-3" />
-              <div class="text-p text-xs text-[#555] md:py-3 md:px-4 px-3">
-                {{ mitra.testimony }}
+              <img
+                src="~/assets/atoms/quote.svg"
+                alt="icon-kutip"
+                class="w-[37px] lg:w-[54px]"
+              />
+            </div>
+            <hr class="md:mx-0 mx-3" />
+            <div class="text-p text-xs text-[#555] py-3 md:px-4 px-3">
+              {{ mitra.testimony }}
+            </div>
+            <div
+              class="flex justify-between items-center md:py-3 md:px-4 px-3 pb-3"
+            >
+              <div class="text-p font-medium">
+                <p class="text-xs text-[#555]">Rewards</p>
+                <p class="text-sm text-[#F6B205] mt-1">
+                  {{ mitra.rewardName }}
+                </p>
               </div>
-              <div
-                class="flex justify-between items-center md:py-3 md:px-4 px-3 pb-3"
-              >
-                <div class="text-p font-medium">
-                  <p class="text-xs text-[#555]">Rewards</p>
-                  <p class="text-sm text-[#F6B205] mt-1">
-                    {{ mitra.rewardName }}
-                  </p>
-                </div>
-                <img src="~/assets/atoms/icon-reward.png" alt="icon-reward" />
-              </div>
+              <img src="~/assets/atoms/icon-reward.png" alt="icon-reward" />
             </div>
           </div>
         </div>
       </div>
-      <div class="md:hidden">
-        <div class="grid gap-5 mt-5">
-          <div v-for="(mitra, id) in partners.list" :key="id">
-            <div class="box-mitra lg:space-y-[16px] space-y-3">
-              <div
-                class="flex justify-between md:py-3 lg:pt-0 pt-3 lg:px-4 px-3"
-              >
-                <div class="flex gap-3 items-center">
-                  <img
-                    class="w-[36px] h-[36px] rounded-full object-center object-cover"
-                    :src="mitra.profileImage"
-                    alt="foto mitra"
-                  />
-                  <div>
-                    <h1 class="font-bold lg::text-base text-sm">
-                      {{ mitra.name }}
-                    </h1>
-                    <div class="text-p text-xs text-[#555]">
-                      {{ mitra.address }}
-                    </div>
-                  </div>
-                </div>
-                <img
-                  src="~/assets/atoms/quote.svg"
-                  alt="icon-kutip"
-                  class="w-[37px] lg:w-[54px]"
-                />
-              </div>
-              <hr class="md:mx-0 mx-3" />
-              <div class="text-p text-xs text-[#555] md:py-3 md:px-4 px-3">
-                {{ mitra.testimony }}
-              </div>
-              <div
-                class="flex justify-between items-center md:py-3 md:px-4 px-3 pb-3"
-              >
-                <div class="text-p font-medium">
-                  <p class="text-xs text-[#555]">Rewards</p>
-                  <p class="text-sm text-[#F6B205] mt-1">
-                    {{ mitra.rewardName }}
-                  </p>
-                </div>
-                <img src="~/assets/atoms/icon-reward.png" alt="icon-reward" />
-              </div>
-            </div>
-          </div>
-        </div>
+      <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:gap-6 gap-5 mt-5">
+        <CardShimmer />
+        <CardShimmer />
+        <CardShimmer />
       </div>
-      <ButtonShow
-        v-if="partners.list.length > filterPartner.limit"
-        :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
-        :mode="`${!isShow ? 'top' : 'bottom'}`"
-        @click-show="toggleShow(), (isShow = !isShow)"
-      />
-    </template>
+    </div>
+    <ButtonShow
+      v-if="
+        !isLoading && partners.pagination.totalResults > filterPartner.limit
+      "
+      :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
+      :mode="`${!isShow ? 'top' : 'bottom'}`"
+      @click-show="toggleShow(), (isShow = !isShow)"
+    />
   </div>
 </template>
 
 <script>
 import ButtonShow from '~/components/atoms/ButtonShow'
+import CardShimmer from './views/partner-card-shimmer.vue'
 
 export default {
   components: {
     ButtonShow,
+    CardShimmer,
   },
   data() {
     return {
@@ -142,20 +103,23 @@ export default {
       isLoading: true,
       filterPartner: {
         page: 1,
-        limit: 10,
+        limit: null,
       },
       partners: {
         list: [],
-        paginatiom: {},
+        pagination: {},
       },
+      limitByScreen: null,
     }
   },
+  beforeMount() {
+    this.limitPartnerByScreenSize()
+  },
   mounted() {
-    this.defineLimitByScreenSize()
     this.getPartners()
   },
   methods: {
-    defineLimitByScreenSize() {
+    limitPartnerByScreenSize() {
       let screen = window.innerWidth
       let limitPartner = 3
       if (screen <= 767) {
@@ -177,7 +141,7 @@ export default {
       this.getPartners()
     },
     showLess() {
-      this.defineLimitByScreenSize()
+      this.limitPartnerByScreenSize()
       this.getPartners()
     },
     async getPartners() {

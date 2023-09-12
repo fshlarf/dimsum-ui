@@ -92,6 +92,7 @@
       </header>
       <div class="mt-[85px] lg:mt-6 xl:mt-12 w-full">
         <div
+          v-if="!isLoading"
           class="flex flex-wrap gap-[12px] lg:gap-[20px] mt-5 justify-left items-center mx-auto"
         >
           <CardProduct
@@ -101,9 +102,18 @@
             @click="goToDetailsProduct(product.id)"
           />
         </div>
+        <div
+          v-else
+          class="flex flex-wrap gap-[12px] lg:gap-[20px] mt-5 justify-left items-center mx-auto"
+        >
+          <CardProductShimmer />
+          <CardProductShimmer />
+          <CardProductShimmer />
+          <CardProductShimmer />
+        </div>
       </div>
       <footer
-        v-if="products.list.length > 0"
+        v-if="!isLoading && products.list.length > 0"
         class="mt-[50px] max-w-max mx-auto"
       >
         <Pagination
@@ -118,13 +128,15 @@
 </template>
 
 <script>
-import CardProduct from '~/components/product/product-dimsum.vue'
+import CardProduct from '~/components/organism/ProductSection/views/product-card.vue'
+import CardProductShimmer from '~/components/organism/ProductSection/views/product-card-shimmer.vue'
 import Pagination from '~/components/molleculs/pagination.vue'
 
 export default {
   components: {
     CardProduct,
     Pagination,
+    CardProductShimmer,
   },
   data() {
     return {
@@ -132,7 +144,6 @@ export default {
       handleLimitByScreen: null,
       isShow: false,
       isLoading: true,
-
       products: {
         list: [],
         pagination: {},
@@ -171,11 +182,13 @@ export default {
     },
     limitProductByScreenSize() {
       let screen = window.innerWidth
+      let limit = 8
       if (screen <= 1400) {
-        this.handleLimitByScreen = 8
+        limit = 8
       } else {
-        this.handleLimitByScreen = 16
+        limit = 16
       }
+      this.filterProduct.limit = limit
     },
     onSearchProduct() {
       this.filterProduct = {
@@ -208,16 +221,12 @@ export default {
       } catch (error) {
         console.log(error)
       }
-      this.isLoading = false
     },
     async getProducts() {
       this.isLoading = true
       try {
         const res = await this.$axios.get('/customer/products', {
-          params: (this.filterProduct = {
-            ...this.filterProduct,
-            limit: this.handleLimitByScreen,
-          }),
+          params: this.filterProduct,
         })
         if (res.data) {
           const { data, pagination } = res.data

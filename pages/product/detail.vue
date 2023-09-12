@@ -104,30 +104,6 @@
                 <p class="whitespace-pre-line" v-html="variant.description"></p>
               </div>
             </section>
-            <!-- <section v-if="product.packaging == 'Box'" class="mt-[16px]">
-              <h3
-                class="uppercase text-sm lg:text-base font-semibold text-[#B71A1B]"
-              >
-                Per box
-              </h3>
-              <div
-                class="mt-[12px] space-y-[12px] text-sm font-medium text-[#474747]"
-              >
-                <p class="leading-[26px]">
-                  RESELLER minimal belanja 10 BOX Free Saus 10 Batang dan <br />
-                  mitra bebas pilih varian dimsum.
-                </p>
-                <p class="leading-[26px]">
-                  AGENT minimal belanja 100 BOX Free <br />Saus 100 Batang dan
-                  mitra bebas pilih varian dimsum.
-                </p>
-                <p>
-                  Pengiriman luar kota minimal belanja 1 Styrofoam, Ongkir dan
-                  Styrofoam ditanggung Pembeli.
-                </p>
-                <p>Pengiriman dalam kota free delivery untuk AGENT.</p>
-              </div>
-            </section> -->
           </div>
           <a
             href="https://api.whatsapp.com/send?phone=6281375126758"
@@ -152,17 +128,10 @@ export default {
   data() {
     return {
       product: {},
-      variants: [],
     }
   },
   mounted() {
     this.getProductById()
-    // this.getProductImage(this.product.fileName)
-  },
-  watch: {
-    product(val) {
-      this.getProductImage(val.fileName)
-    },
   },
   methods: {
     async getProductById() {
@@ -172,36 +141,6 @@ export default {
         this.product = response.data.data
       } catch (error) {
         console.log(error)
-      }
-    },
-    async getProductImage(fileName) {
-      if (fileName) {
-        const url = `bucket/images/products/${fileName}`
-        await this.$axios
-          .get(url, {
-            responseType: 'blob',
-          })
-          .then((response) => {
-            const responseType = response.headers['content-type']
-            const responseData = response.data
-
-            // Convert the response data to a Blob
-            const blob = new Blob([responseData], { type: responseType })
-
-            // Create a new File object with the Blob
-            const imageFile = new File([blob], fileName, {
-              type: responseType,
-            })
-
-            const srcImage = URL.createObjectURL(imageFile)
-            const bannerImage = document.getElementById(
-              `product-image-${this.product.id}`
-            )
-            bannerImage.src = srcImage
-          })
-          .catch((error) => {
-            console.error(error)
-          })
       }
     },
     toRupiah,

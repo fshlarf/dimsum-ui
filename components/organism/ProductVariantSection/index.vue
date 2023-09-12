@@ -1,5 +1,8 @@
 <template>
-  <div class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5">
+  <div
+    id="product-variant"
+    class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5"
+  >
     <div class="text-center">
       <h1 class="text-[30px] font-bold md:block hidden">
         <span class="text-[#F6B205]">Daftar Variant &</span> Harga Dimsum
@@ -21,14 +24,14 @@
         :key="id"
         class="h-full py-[12px] px-[8px] md:p-[12px] rounded-l-[20px] rounded-r-[20px] cursor-pointer transition-all duration-200 ease-linear"
         :class="{
-          'bg-[#F6B205]': category.id == filterProduct.categoryId,
+          'bg-[#F6B205]': category.id == filterProductVariant.categoryId,
         }"
         @click="onSelectCategory(category)"
       >
         <section class="flex items-center md:gap-[4px]">
           <img
             :src="[
-              category.id == filterProduct.categoryId
+              category.id == filterProductVariant.categoryId
                 ? '/images/product/' + category.name + '-active.svg'
                 : '/images/product/' + category.name + '.svg',
             ]"
@@ -38,7 +41,7 @@
           <p
             class="text-p md:text-sm text-xs font-bold md:pr-3 whitespace-nowrap"
             :class="[
-              category.id == filterProduct.categoryId
+              category.id == filterProductVariant.categoryId
                 ? 'text-white'
                 : 'text-[#F6B205]',
             ]"
@@ -50,6 +53,7 @@
     </div>
 
     <div
+      v-if="!isLoading"
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-center mt-[20px] lg:mt-[40px]"
     >
       <CardProduct
@@ -59,9 +63,17 @@
         :category="selectedCategory"
       />
     </div>
+    <div
+      v-else
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 justify-center mt-[20px] lg:mt-[40px]"
+    >
+      <CardShimmer />
+      <CardShimmer />
+      <CardShimmer />
+    </div>
 
     <ButtonShow
-      v-if="pagination.totalResults > limitProductByScreenSize()"
+      v-if="!isLoading && pagination.totalResults > filterProductVariant.limit"
       :btnText="`${!isShow ? 'Tampilkan Semua' : 'Tampilkan Lebih Sedikit'}`"
       :mode="`${!isShow ? 'top' : 'bottom'}`"
       @click-show="toggleShow(), (isShow = !isShow)"
@@ -73,12 +85,14 @@
 <script>
 import ModalInfo from './views/ModalInfo'
 import ButtonShow from '~/components/atoms/ButtonShow'
-import CardProduct from '~/components/product/card-product'
+import CardProduct from './views/variant-card.vue'
+import CardShimmer from './views/variant-card-shimmer.vue'
 export default {
   components: {
     ModalInfo,
     ButtonShow,
     CardProduct,
+    CardShimmer,
   },
   data() {
     return {
@@ -89,7 +103,7 @@ export default {
       handleLimitByScreen: false,
       products: [],
       pagination: {},
-      filterProduct: {
+      filterProductVariant: {
         limit: null,
         search: '',
         categoryId: 1,
@@ -127,7 +141,11 @@ export default {
         },
       ],
       selectedCategory: {},
+      isLoading: true,
     }
+  },
+  beforeMount() {
+    this.limitVariantByScreenSize()
   },
   mounted() {
     this.getCategories()
@@ -147,19 +165,20 @@ export default {
       this.isShowModalInfo = true
     },
     showAll() {
-      this.handleLimitByScreen = true
+      this.filterProductVariant.limit = 9999
       this.getProducts()
     },
     showLess() {
-      this.handleLimitByScreen = false
+      this.limitVariantByScreenSize()
       this.getProducts()
     },
     async getCategories() {
+      this.isLoading = true
       try {
         const res = await this.$axios.get('/customer/categories')
         this.categories = res.data.data
-        this.filterProduct = {
-          ...this.filterProduct,
+        this.filterProductVariant = {
+          ...this.filterProductVariant,
           categoryId: this.categories[0].id,
         }
         this.selectedCategory = this.categories[0]
@@ -169,33 +188,21 @@ export default {
       }
     },
     async getProducts() {
+      this.isLoading = true
       try {
-        if (this.handleLimitByScreen) {
-          const res = await this.$axios.get('/customer/product-variants', {
-            params: (this.filterProduct = {
-              ...this.filterProduct,
-              limit: 999999,
-            }),
-          })
-          this.products = res.data.data
-          this.pagination = res.data.pagination
-        } else {
-          const res = await this.$axios.get('/customer/product-variants', {
-            params: (this.filterProduct = {
-              ...this.filterProduct,
-              limit: this.limitProductByScreenSize(),
-            }),
-          })
-          this.products = res.data.data
-          this.pagination = res.data.pagination
-        }
+        const res = await this.$axios.get('/customer/product-variants', {
+          params: this.filterProductVariant,
+        })
+        this.products = res.data.data
+        this.pagination = res.data.pagination
       } catch (error) {
         console.log(error)
       }
+      this.isLoading = false
     },
     onSelectCategory(category) {
-      this.filterProduct = {
-        ...this.filterProduct,
+      this.filterProductVariant = {
+        ...this.filterProductVariant,
         page: 1,
         categoryId: category.id,
       }
@@ -203,24 +210,24 @@ export default {
       this.getProducts()
     },
     onSelectPackaging(packaging) {
-      this.filterProduct = {
-        ...this.filterProduct,
+      this.filterProductVariant = {
+        ...this.filterProductVariant,
         page: 1,
         packaging: packaging,
       }
       this.getProducts()
     },
-    limitProductByScreenSize() {
+    limitVariantByScreenSize() {
       let screen = window.innerWidth
-      let limitProduct = 4
+      let limitByScreen = 4
       if (screen <= 767) {
-        limitProduct = 4
+        limitByScreen = 4
       } else if (screen < 1023) {
-        limitProduct = 6
+        limitByScreen = 6
       } else {
-        limitProduct = 9
+        limitByScreen = 9
       }
-      return limitProduct
+      this.filterProductVariant.limit = limitByScreen
     },
   },
 }

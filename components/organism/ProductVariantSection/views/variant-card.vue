@@ -56,45 +56,7 @@ export default {
       default: () => {},
     },
   },
-  watch: {
-    product(val) {
-      this.getProductImage(val.fileName)
-    },
-  },
-  mounted() {
-    this.getProductImage(this.product.fileName)
-  },
   methods: {
-    async getProductImage(fileName) {
-      if (fileName) {
-        const url = `bucket/images/products/${fileName}`
-        await this.$axios
-          .get(url, {
-            responseType: 'blob',
-          })
-          .then((response) => {
-            const responseType = response.headers['content-type']
-            const responseData = response.data
-
-            // Convert the response data to a Blob
-            const blob = new Blob([responseData], { type: responseType })
-
-            // Create a new File object with the Blob
-            const imageFile = new File([blob], fileName, {
-              type: responseType,
-            })
-
-            const srcImage = URL.createObjectURL(imageFile)
-            const bannerImage = document.getElementById(
-              `product-${this.product.id}`
-            )
-            bannerImage.src = srcImage
-          })
-          .catch((error) => {
-            console.error(error)
-          })
-      }
-    },
     toRupiah,
   },
 }

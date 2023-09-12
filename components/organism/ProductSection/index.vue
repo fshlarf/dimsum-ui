@@ -35,6 +35,7 @@
     </div>
     <div>
       <div
+        v-if="!isLoading"
         class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mt-5 gap-5 justify-center items-center"
       >
         <CardProduct
@@ -43,9 +44,18 @@
           :product="product"
         />
       </div>
+      <div
+        v-else
+        class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 mt-5 gap-5 justify-center items-center"
+      >
+        <CardShimmer />
+        <CardShimmer />
+        <CardShimmer />
+        <CardShimmer />
+      </div>
     </div>
     <nuxt-link
-      v-if="pagination.totalResults > handleLimitByScreen"
+      v-if="!isLoading && pagination.totalResults > filterProduct.limit"
       to="/product"
     >
       <ButtonShow
@@ -58,16 +68,17 @@
 
 <script>
 import ButtonShow from '~/components/atoms/ButtonShow'
-import CardProduct from '~/components/product/product-dimsum.vue'
+import CardProduct from '~/components/organism/ProductSection/views/product-card.vue'
+import CardShimmer from './views/product-card-shimmer.vue'
 
 export default {
   components: {
     ButtonShow,
     CardProduct,
+    CardShimmer,
   },
   data() {
     return {
-      handleLimitByScreen: null,
       isShow: false,
       products: [],
       pagination: {},
@@ -76,6 +87,7 @@ export default {
         search: '',
         categoryId: 1,
       },
+      isLoading: true,
     }
   },
   beforeMount() {
@@ -87,25 +99,26 @@ export default {
   methods: {
     limitProductByScreenSize() {
       let screen = window.innerWidth
+      let limitByScreen = 6
       if (screen <= 1400) {
-        this.handleLimitByScreen = 6
+        limitByScreen = 6
       } else {
-        this.handleLimitByScreen = 8
+        limitByScreen = 8
       }
+      this.filterProduct.limit = limitByScreen
     },
     async getProducts() {
+      this.isLoading = true
       try {
         const res = await this.$axios.get('/customer/products', {
-          params: (this.filterProduct = {
-            ...this.filterProduct,
-            limit: this.handleLimitByScreen,
-          }),
+          params: this.filterProduct,
         })
         this.products = res.data.data
         this.pagination = res.data.pagination
       } catch (error) {
         console.log(error)
       }
+      this.isLoading = false
     },
   },
 }
