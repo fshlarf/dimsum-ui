@@ -25,49 +25,13 @@
     <div class="">
       <div
         v-if="!isLoading"
-        class="grid grid-cols-1 md:grid-cols-3 lg:gap-6 gap-5 mt-5"
+        class="grid grid-cols-1 md:grid-cols-3 lg:gap-6 gap-5 mt-5 items-start"
       >
-        <div v-for="(mitra, id) in partners.list" :key="id">
-          <div class="box-mitra">
-            <div class="flex justify-between py-3 lg:px-4 px-3">
-              <div class="flex gap-3 items-center">
-                <img
-                  class="w-[42px] h-[42px] rounded-full object-center object-cover"
-                  :src="mitra.profileImage"
-                  alt="foto mitra"
-                />
-                <div>
-                  <h1 class="font-bold lg::text-base text-sm">
-                    {{ mitra.name }}
-                  </h1>
-                  <div class="text-p text-xs text-[#555]">
-                    {{ mitra.address }}
-                  </div>
-                </div>
-              </div>
-              <img
-                src="~/assets/atoms/quote.svg"
-                alt="icon-kutip"
-                class="w-[37px] lg:w-[54px]"
-              />
-            </div>
-            <hr class="md:mx-0 mx-3" />
-            <div class="text-p text-xs text-[#555] py-3 md:px-4 px-3">
-              {{ mitra.testimony }}
-            </div>
-            <div
-              class="flex justify-between items-center md:py-3 md:px-4 px-3 pb-3"
-            >
-              <div class="text-p font-medium">
-                <p class="text-xs text-[#555]">Rewards</p>
-                <p class="text-sm text-[#F6B205] mt-1">
-                  {{ mitra.rewardName }}
-                </p>
-              </div>
-              <img src="~/assets/atoms/icon-reward.png" alt="icon-reward" />
-            </div>
-          </div>
-        </div>
+        <PartnerCard
+          v-for="(mitra, id) in partners.list"
+          :key="id"
+          :partner="mitra"
+        />
       </div>
       <div v-else class="grid grid-cols-1 md:grid-cols-3 lg:gap-6 gap-5 mt-5">
         <CardShimmer />
@@ -89,11 +53,13 @@
 <script>
 import ButtonShow from '~/components/atoms/ButtonShow'
 import CardShimmer from './views/partner-card-shimmer.vue'
+import PartnerCard from './views/partner-card.vue'
 
 export default {
   components: {
     ButtonShow,
     CardShimmer,
+    PartnerCard,
   },
   data() {
     return {
