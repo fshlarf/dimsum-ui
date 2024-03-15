@@ -1,6 +1,8 @@
 <template>
   <div
-    v-if="!isLoading && announcement && announcement.name"
+    v-if="
+      !isLoading && announcement && announcement.name && announcement.isActive
+    "
     class="max-w-[1120px] mt-[52px] 2xl:mx-auto lg:mx-[161px] md:mx-10 mx-5"
   >
     <a
