@@ -3,7 +3,7 @@
     <div class="top-article flex items-start gap-[16px] p-[16px]">
       <img
         alt="dimsum"
-        class="w-[70px] h-[70px] xl:w-[100px] xl:h-[100px] rounded-[5px] object-cover"
+        class="w-[70px] h-[70px] xl:w-[100px] xl:h-[100px] rounded-[5px] object-cover shrink-0"
         :id="`latest-article-${article.id}`"
       />
       <div class="">
