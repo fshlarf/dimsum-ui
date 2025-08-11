@@ -4,7 +4,7 @@
       <div class="flex gap-3 items-center">
         <img
           class="w-[42px] h-[42px] rounded-full object-center object-cover"
-          :src="partner.profileImage"
+          :src="partner.photoFilename"
           alt="foto mitra"
         />
         <div>

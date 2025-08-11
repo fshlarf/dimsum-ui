@@ -57,7 +57,8 @@ export default {
     async getPortfolioIcons(portfolio) {
       const fileName = portfolio.iconName
       if (fileName) {
-        const url = `bucket/images/portfolio/${fileName}`
+        // const url = `bucket/images/portfolio/${fileName}`
+        const url = fileName
         await this.$axios
           .get(url, {
             responseType: 'blob',

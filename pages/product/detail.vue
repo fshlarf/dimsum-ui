@@ -13,7 +13,7 @@
           class="w-full h-[228px] md:max-w-[400px] md:h-[280px] lg:max-w-[300px] lg:h-[330px] xl:max-w-[348px] xl:h-[418px] mx-auto rounded-[10px] overflow-hidden"
         >
           <img
-            :src="product.imageLink"
+            :src="product.productFileName"
             :alt="product.name"
             class="w-full h-full object-cover object-center"
             :id="`product-image-${this.product.id}`"

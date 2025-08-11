@@ -19,7 +19,7 @@
           class="slider-item flex-none !w-full !h-full overflow-hidden"
         >
           <img
-            :src="product.imageLink"
+            :src="product.productFileName"
             alt="Slider Image"
             class="image w-full h-full object-cover object-bottom md:object-center"
           />

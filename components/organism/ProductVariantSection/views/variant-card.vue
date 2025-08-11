@@ -7,7 +7,7 @@
       class="w-[90px] h-[90px] lg:w-[104px] lg:h-[101px] overflow-hidden rounded-[8px]"
     >
       <img
-        :src="product.imageLink"
+        :src="product.productFileName"
         :alt="`dimsum-${product.productName}`"
         class="w-full h-full object-cover object-center mx-auto"
       />

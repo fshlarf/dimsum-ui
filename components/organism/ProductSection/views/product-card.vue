@@ -7,7 +7,7 @@
       @click="$router.push(`/product/detail?id=${product.id}`)"
     >
       <img
-        :src="product.imageLink"
+        :src="product.fileName"
         alt="dimsum-image"
         :id="`product-image-${product.id}`"
         class="w-full h-full object-cover object-center"
